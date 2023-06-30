@@ -1,14 +1,18 @@
 .container1{
     display: flex;
-    background-color: black ;
+    background-color: black;
     padding: 20px;
-    height: 110%;
-    width: 110%;
+    text-align: center;
+    list-style: none;
+    column-gap: 3rem;
+    row-gap: 4rem;
+    align-items: center;
 }
 
 
 .fontColor{
     color:white;
+    font-family: Arial, sans-serif;
 }
 
 
@@ -16,8 +20,6 @@
     flex-wrap: wrap;
     gap: 32px;
     display: flex;
-    
-    
 }
 
 .aruma{
@@ -27,4 +29,5 @@
     align-items: center;
     justify-content: center;
     max-width: 250px;
+    padding: 10px;
 }

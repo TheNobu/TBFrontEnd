@@ -6,29 +6,38 @@ import { useNavigate } from "react-router-dom";
 const Page2 = () => {
     const [data,setData] = useState([])
     const [loading,setLoading] = useState(false)
+    const [page,setPage] = useState(1)
 
     const navigate = useNavigate()
 
     const goBackPage  = () =>{
         navigate('/')
     }
-    
+
+    const changePage = () =>{
+        setPage(page + 1)
+    }
+
+    const chagePageBack = () =>{
+        setPage(page - 1)
+        
+    }
 
     const fethData2 = useCallback(async()=>{
         try {
             setLoading(true)
-            const {data} = await axios.get('https://api.jikan.moe/v4/manga')
+            const {data} = await axios.get(`https://api.jikan.moe/v4/manga?page=${page}`)
             setData(data.data)
         } catch (error) {
             console.error(error)
         }finally{
             setLoading(false)
         }
-    },[]) 
+    },[page]) 
 
     useEffect(()=>{
         fethData2()
-    },[])
+    },[page])
 
     const renderData2 = () =>{
         if(loading){
@@ -53,7 +62,9 @@ const Page2 = () => {
                        </div> 
                     ))}
                 </div>
+                <button onClick={chagePageBack}>-</button>
                 <button onClick = {goBackPage}>Back Page</button>
+                <button onClick={changePage}>+</button>
             </div>
 
 

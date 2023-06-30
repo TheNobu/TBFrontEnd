@@ -7,6 +7,7 @@ const Page1 = () => {
 
     const [data,setData] = useState([])
     const [loading,setLoading] = useState(false)
+    const [page,setPage] = useState(1)
 
     const navigate = useNavigate()
 
@@ -14,22 +15,32 @@ const Page1 = () => {
     const page1ToPaga2 = () =>{
         navigate('/page2')
     }
+    console.log(page)
+
+    const changePage = () =>{
+        setPage(page + 1)
+    }
+
+    const chagePageBack = () =>{
+        setPage(page - 1)
+        
+    }
 
     const fenchData = useCallback(async()=>{
         try {
             setLoading(true)
-            const {data} = await axios.get('https://api.jikan.moe/v4/top/anime')
+            const {data} = await axios.get(`https://api.jikan.moe/v4/top/anime?page=${page}`)
             setData(data.data) 
         } catch (error) {
             console.error(error)
         }finally{
             setLoading(false)
         }
-    },[])
+    },[page])
 
     useEffect(()=>{
         fenchData()
-    },[])
+    },[page])
 
     const renderData = () =>{
         if(loading){
@@ -54,7 +65,10 @@ const Page1 = () => {
                 ))}
                     
                 </div>
+                <button onClick={chagePageBack}>-</button>
                 <button onClick={page1ToPaga2}> Next Page</button>
+                <button onClick={changePage}>+</button>
+                
             </div>
         )
     }
